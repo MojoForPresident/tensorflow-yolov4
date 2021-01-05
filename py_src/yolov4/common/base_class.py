@@ -299,7 +299,7 @@ class BaseClass:
 
                     cv2.putText(
                         image,
-                        "preidct: {:.2f} ms, fps: {:.2f}".format(
+                        "predict: {:.2f} ms, fps: {:.2f}".format(
                             predict_exec_time * 1000,
                             1 / (curr_time - prev_time),
                         ),
@@ -313,8 +313,12 @@ class BaseClass:
                     prev_time = curr_time
 
                     cv2.imshow("result", image)
-                    if cv2.waitKey(cv_waitKey_delay) & 0xFF == ord("q"):
+                    key_code = cv2.waitKey(cv_waitKey_delay) & 0xFF
+                    if key_code == ord("q"):
                         break
+                    if key_code == ord("p"):
+                        while cv2.waitKey(cv_waitKey_delay) & 0xFF != ord("p"):
+                            pass
 
             cap.release()
 
